@@ -8,7 +8,7 @@ public class IntBoard {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void calcAdjacencies() {
+	public void calcAdjacencies(int index) {
 		
 	}
 
@@ -20,7 +20,7 @@ public class IntBoard {
 		return new HashSet();
 	}
 	
-	public LinkedList<Integer> getAdjList() {
+	public LinkedList<Integer> getAdjList(int index) {
 		return new LinkedList<Integer>();
 	}
 	
