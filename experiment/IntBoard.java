@@ -3,6 +3,8 @@ package experiment;
 import java.util.*;
 
 public class IntBoard {
+	private Map<Integer, LinkedList<Integer>> adjMtx;
+	private boolean[] visited;
 
 	public IntBoard() {
 		// TODO Auto-generated constructor stub
@@ -13,7 +15,9 @@ public class IntBoard {
 	}
 
 	public void startTargets(int location, int steps) {
-		
+		Arrays.fill(visited, false);
+		visited[location] = true;
+		adjMtx = new HashMap();
 	}
 	
 	public HashSet getTargets() {
