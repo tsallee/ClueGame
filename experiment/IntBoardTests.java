@@ -79,7 +79,7 @@ public class IntBoardTests {
 	@Test
 	public void testTargets0_3() {
 		board.startTargets(0, 3);
-		HashSet targets= board.getTargets();
+		HashSet<Integer> targets = board.getTargets();
 		assertEquals(6, targets.size());
 		assertTrue(targets.contains(12));
 		assertTrue(targets.contains(9));
@@ -92,7 +92,7 @@ public class IntBoardTests {
 	@Test
 	public void testTargets3_1() {
 		board.startTargets(3, 1);
-		HashSet targets = board.getTargets();
+		HashSet<Integer> targets = board.getTargets();
 		assertEquals(2, targets.size());
 		assertTrue(targets.contains(2));
 		assertTrue(targets.contains(7));
@@ -101,18 +101,23 @@ public class IntBoardTests {
 	@Test
 	public void testTargets5_2() {
 		board.startTargets(5, 2);
-		HashSet targets = board.getTargets();
-		assertEquals(4, targets.size());
+		HashSet<Integer> targets = board.getTargets();
+		for(Object test : targets.toArray()) {
+			System.out.println(test);
+		}
+		assertEquals(6, targets.size());
 		assertTrue(targets.contains(0));
 		assertTrue(targets.contains(8));
 		assertTrue(targets.contains(2));
 		assertTrue(targets.contains(10));
+		assertTrue(targets.contains(13));
+		assertTrue(targets.contains(7));
 	}
 
 	@Test
 	public void testTargets15_5() {
 		board.startTargets(15, 5);
-		HashSet targets = board.getTargets();
+		HashSet<Integer> targets = board.getTargets();
 		assertEquals(8, targets.size());
 		assertTrue(targets.contains(4));
 		assertTrue(targets.contains(1));
