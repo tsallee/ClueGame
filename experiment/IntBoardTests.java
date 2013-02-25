@@ -129,6 +129,7 @@ public class IntBoardTests {
 		assertTrue(targets.contains(11));
 	}
 	
+	@Test
 	public void testTargets7_4() {
 		board.startTargets(7, 4);
 		HashSet targets = board.getTargets();
@@ -142,6 +143,7 @@ public class IntBoardTests {
 		assertTrue(targets.contains(15));
 	}
 
+	@Test
 	public void testTargets9_6() {
 		board.startTargets(9, 6);
 		HashSet targets = board.getTargets();
