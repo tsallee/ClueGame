@@ -142,7 +142,7 @@ public class IntBoardTests {
 		assertTrue(targets.contains(10));
 		assertTrue(targets.contains(15));
 	}
-	
+
 	@Test
 	public void testTargets9_6() {
 		board.startTargets(9, 6);

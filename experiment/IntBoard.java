@@ -31,6 +31,7 @@ public class IntBoard {
 		targets = new HashSet<Integer>();
 		visited[location] = true;
 		calcTargets(location, steps);
+		if(targets.contains(location)) targets.remove(location);
 	}
 	
 	public void calcTargets(int location, int steps) {
