@@ -103,7 +103,6 @@ public class IntBoardTests {
 		board.startTargets(5, 2);
 		HashSet<Integer> targets = board.getTargets();
 		for(Object test : targets.toArray()) {
-			System.out.println(test);
 		}
 		assertEquals(6, targets.size());
 		assertTrue(targets.contains(0));
