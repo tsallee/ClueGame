@@ -11,10 +11,11 @@ public class Board {
 	private int numColumns;
 	
 	public Board() {
-		// TODO Auto-generated constructor stub
+		cells = new ArrayList<BoardCell>();
 	}
 	
-	public void loadConfigFiles() {
+	
+	public void loadConfigFiles() throws BadConfigException {
 		
 	}
 	

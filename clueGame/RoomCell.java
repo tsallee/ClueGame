@@ -1,7 +1,9 @@
 package clueGame;
 
 public class RoomCell extends BoardCell {
-
+	
+	private char initial;
+			
 	public RoomCell() {
 		// TODO Auto-generated constructor stub
 	}
@@ -19,6 +21,10 @@ public class RoomCell extends BoardCell {
 	
 	public DoorDirection getDoorDirection() {
 		return doorDirection;
+	}
+	
+	public char getInitial() {
+		return initial;
 	}
 	
 	/*
