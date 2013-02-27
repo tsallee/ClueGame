@@ -17,6 +17,10 @@ public class RoomCell extends BoardCell {
 		return true;
 	}
 	
+	public DoorDirection getDoorDirection() {
+		return doorDirection;
+	}
+	
 	/*
 	public void draw() {
 		

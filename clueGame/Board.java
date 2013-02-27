@@ -23,7 +23,7 @@ public class Board {
 		return 0;
 	}
 	
-	public BoardCell getRoomCellAt(int row, int column) {
+	public RoomCell getRoomCellAt(int row, int column) {
 		return new RoomCell();
 	}
 	
