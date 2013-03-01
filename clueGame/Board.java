@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -16,10 +18,12 @@ public class Board {
 	
 	public Board() {
 		cells = new ArrayList<BoardCell>();
+		rooms = new HashMap<Character, String>();
 	}
 	
 	public Board(String legend, String board) {
 		cells = new ArrayList<BoardCell>();
+		rooms = new HashMap<Character, String>();
 		legendFileName = legend;
 		boardFileName = board;
 	}
@@ -71,17 +75,17 @@ public class Board {
 	
 	//Returns a linked list with the adjacencies for a given index.
 	public LinkedList<Integer> getAdjList(int index) {
-		return null;
+		return new LinkedList<Integer>();
 	}
 	
 	//Calculates the available targets given an row/col and number of steps.
 	public Set<BoardCell> calcTargets(int row, int col, int steps) {
-		return null;
+		return new HashSet<BoardCell>();
 	}
 	
 	//Returns a set of all the targets that are available. Called after calcTargets.
 	public Set<BoardCell> getTargets() {
-		return null;
+		return new HashSet<BoardCell>();
 	}
 
 	//Returns the cell at the given index.

@@ -23,7 +23,7 @@ public class BoardInitTests {
 	public static final int NUM_ROWS = 22;
 	public static final int NUM_COLUMNS = 23;
 	
-	@Before
+	@BeforeClass
 	public static void setUp() {
 		board = new Board();
 		board.loadConfigFiles();
