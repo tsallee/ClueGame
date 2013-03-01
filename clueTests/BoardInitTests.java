@@ -24,8 +24,8 @@ public class BoardInitTests {
 	public static final int NUM_COLUMNS = 23;
 	
 	@BeforeClass
-	public static void setUp() {
-		board = new Board();
+	public static void setUp() throws BadConfigFormatException, FileNotFoundException {
+		board = new Board("ClueLayout.csv", "ClueLegend.txt");
 		board.loadConfigFiles();
 	}
 	
@@ -90,6 +90,7 @@ public class BoardInitTests {
 			if (cell.isDoorway())
 				numDoors++;
 		}
+		System.out.println(numDoors);
 		Assert.assertEquals(16, numDoors);
 	}
 

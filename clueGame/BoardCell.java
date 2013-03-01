@@ -1,16 +1,21 @@
 package clueGame;
 
-public abstract class BoardCell {
-	
+public class BoardCell {
 	int row;
 	int column;
+	boolean walkway;
 	
-	public BoardCell() {
-		// TODO Auto-generated constructor stub
+	public BoardCell() {}
+	
+	public BoardCell(int rowInd, int colInd, boolean isWalkway) {
+		super();
+		row = rowInd;
+		column = colInd;
+		walkway = isWalkway;
 	}
-	
+
 	public boolean isWalkway() {
-		return false;
+		return walkway;
 	}
 	
 	public boolean isRoom() {

@@ -15,6 +15,7 @@ public class clueGameTester {
 	@Before
 	public void setup() {
 		board = new Board();
+		board.loadConfigFiles();
 	}
 
 	@Test
@@ -58,14 +59,15 @@ public class clueGameTester {
 	
 	@Test
 	public void testCalcIndex() {
-		assertEquals(28, board.calcIndex(1, 3));
-		assertEquals(496, board.calcIndex(20, 15));
-		assertEquals(154, board.calcIndex(6, 9));
+		assertEquals(27, board.calcIndex(1, 3));
+		assertEquals(495, board.calcIndex(20, 15));
+		assertEquals(153, board.calcIndex(6, 9));
 	}
 	
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadConfigException() {
 		try {
+			board = new Board("ClueLayoutBadRoom.csv", "ClueLegendBadFormat.txt");
 			board.loadConfigFiles();
 		} catch (BadConfigFormatException e) {
 			System.out.println("Configuration file is not working.");

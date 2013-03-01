@@ -1,11 +1,8 @@
 package clueGame;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.*;
 
 public class Board {
 	
@@ -19,9 +16,11 @@ public class Board {
 	public Board() {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
+		legendFileName = "LegendConfig.txt";
+		boardFileName = "ClueBoard.csv";
 	}
 	
-	public Board(String legend, String board) {
+	public Board(String board, String legend) {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
 		legendFileName = legend;
@@ -29,25 +28,60 @@ public class Board {
 	}
 	
 	public void loadConfigFiles() {
-		loadRoomConfig();
-		loadBoardConfig();
+		try {
+			loadRoomConfig();
+			loadBoardConfig();
+		} catch (FileNotFoundException e ) {
+			System.out.println("File not found.");
+		} catch (BadConfigFormatException e) {
+			System.out.println("Bad format Exception");
+		}
 	}
 	
-	public void loadRoomConfig() throws BadConfigFormatException {
-		
+	public void loadRoomConfig() throws BadConfigFormatException, FileNotFoundException {
+		FileReader reader = new FileReader(legendFileName);
+		Scanner in = new Scanner(reader);
+		while(in.hasNext()) {
+			String input = in.nextLine();
+			String[] sep = input.split(", ");
+			rooms.put(input.charAt(0), sep[1]);
+		}
 	}
 	
-	public void loadBoardConfig() throws BadConfigFormatException {
-		
+	public void loadBoardConfig() throws BadConfigFormatException, FileNotFoundException {
+		numRows = 0;
+		boolean firstLine = true;
+		FileReader reader = new FileReader(boardFileName);
+		Scanner in = new Scanner(reader);
+		while(in.hasNext()) {
+			String input = in.nextLine();
+			String[] sep = input.split(",");
+			if(firstLine == true) {
+				numColumns = sep.length;
+				firstLine = false;
+			}
+			if(sep.length != numColumns) throw new BadConfigFormatException();
+			
+			for(int i = 0; i < sep.length; ++i) {
+				if(!rooms.containsKey(sep[i].charAt(0)) && sep[i] == "W") {
+					cells.add(new BoardCell(i, numRows, true));
+				}else if(!rooms.containsKey(sep[i].charAt(0)) && sep[i] == "X") {
+					cells.add(new BoardCell(i, numRows, false));
+				}else if(rooms.containsKey(sep[i].charAt(0)) 
+						&& (sep[i].length() == 1 || sep[i].length() == 2)) {
+					cells.add(new RoomCell(sep[i]));
+				} else throw new BadConfigFormatException();
+			}
+			numRows++;
+		}
 	}
 	
 	public int calcIndex(int row, int column) {
-		//return (row * 4 + column);
-		return 0;
+		return(row * numColumns + column);
 	}
 	
 	public RoomCell getRoomCellAt(int row, int column) {
-		return new RoomCell();
+		return (RoomCell) cells.get(calcIndex(row, column));
 	}
 	
 	public ArrayList<BoardCell> getCells() {
@@ -90,7 +124,7 @@ public class Board {
 
 	//Returns the cell at the given index.
 	public BoardCell getCellAt(int index) {
-		return null;
+		return cells.get(index);
 	}
 	
 	
