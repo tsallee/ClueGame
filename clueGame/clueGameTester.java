@@ -63,11 +63,11 @@ public class clueGameTester {
 		assertEquals(154, board.calcIndex(6, 9));
 	}
 	
-	@Test (expected = BadConfigException.class)
+	@Test (expected = BadConfigFormatException.class)
 	public void testBadConfigException() {
 		try {
 			board.loadConfigFiles();
-		} catch (BadConfigException e) {
+		} catch (BadConfigFormatException e) {
 			System.out.println("Configuration file is not working.");
 		}
 	}

@@ -15,7 +15,7 @@ public class Board {
 	}
 	
 	
-	public void loadConfigFiles() throws BadConfigException {
+	public void loadConfigFiles() throws BadConfigFormatException {
 		
 	}
 	
