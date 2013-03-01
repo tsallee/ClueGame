@@ -19,6 +19,8 @@ public class RoomCell extends BoardCell {
 			else if(dir == 'D') doorDirection = DoorDirection.DOWN;
 			else if(dir == 'L') doorDirection = DoorDirection.LEFT;
 			else if(dir == 'R') doorDirection = DoorDirection.RIGHT;
+			else doorDirection = DoorDirection.NONE;
+			
 		}
 	}
 	
@@ -28,9 +30,10 @@ public class RoomCell extends BoardCell {
 	
 	private DoorDirection doorDirection;
 	
-	@Override
+	
 	public boolean isRoom() {
-		return true;
+		if(initial != 'X' && initial != 'W') return true;
+		else return false;
 	}
 	
 	public DoorDirection getDoorDirection() {

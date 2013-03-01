@@ -2,6 +2,7 @@ package clueGame;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import org.junit.*;
@@ -46,9 +47,9 @@ public class clueGameTester {
 		assertEquals(true, board.getRoomCellAt(1,1).isRoom());
 		assertEquals(true, board.getRoomCellAt(13,21).isRoom());
 		assertEquals(true, board.getRoomCellAt(23,3).isRoom());
-		assertEquals(false, board.getRoomCellAt(17,16).isRoom());
+		assertEquals(false, board.getRoomCellAt(17, 16).isRoom());
 		assertEquals(false, board.getRoomCellAt(3,8).isRoom());
-		assertEquals(9, board.getRooms().size());
+		assertEquals(11, board.getRooms().size());
 		assertEquals("Study", board.getRooms().get('S'));
 		assertEquals("Lounge", board.getRooms().get('O'));
 		assertEquals("Ballroom", board.getRooms().get('B'));
@@ -65,12 +66,9 @@ public class clueGameTester {
 	}
 	
 	@Test (expected = BadConfigFormatException.class)
-	public void testBadConfigException() {
-		try {
-			board = new Board("ClueLayoutBadRoom.csv", "ClueLegendBadFormat.txt");
-			board.loadConfigFiles();
-		} catch (BadConfigFormatException e) {
-			System.out.println("Configuration file is not working.");
-		}
+	public void testBadConfigException() throws BadConfigFormatException, FileNotFoundException {
+		board = new Board("ClueLayoutBadRoom.csv", "ClueLegendBadFormat.txt");
+		board.loadBoardConfig();
+		board.loadRoomConfig();
 	}
 }

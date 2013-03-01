@@ -44,6 +44,8 @@ public class Board {
 		while(in.hasNext()) {
 			String input = in.nextLine();
 			String[] sep = input.split(", ");
+			if (sep.length > 2) throw new BadConfigFormatException();
+			if (sep[0].length() >1 ) throw new BadConfigFormatException();
 			rooms.put(input.charAt(0), sep[1]);
 		}
 	}
