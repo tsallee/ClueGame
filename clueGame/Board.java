@@ -1,7 +1,9 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
 public class Board {
 	
@@ -9,13 +11,29 @@ public class Board {
 	private Map<Character, String> rooms;
 	private int numRows;
 	private int numColumns;
+	String legendFileName;
+	String boardFileName;
 	
 	public Board() {
 		cells = new ArrayList<BoardCell>();
 	}
 	
+	public Board(String legend, String board) {
+		cells = new ArrayList<BoardCell>();
+		legendFileName = legend;
+		boardFileName = board;
+	}
 	
-	public void loadConfigFiles() throws BadConfigFormatException {
+	public void loadConfigFiles() {
+		loadRoomConfig();
+		loadBoardConfig();
+	}
+	
+	public void loadRoomConfig() throws BadConfigFormatException {
+		
+	}
+	
+	public void loadBoardConfig() throws BadConfigFormatException {
 		
 	}
 	
@@ -44,6 +62,33 @@ public class Board {
 		return numColumns;
 	}
 
+	//Adjacency tests:
+	
+	//Creates the adjacency lists.
+	public void calcAdjacencies() {
+		
+	}
+	
+	//Returns a linked list with the adjacencies for a given index.
+	public LinkedList<Integer> getAdjList(int index) {
+		return null;
+	}
+	
+	//Calculates the available targets given an row/col and number of steps.
+	public Set<BoardCell> calcTargets(int row, int col, int steps) {
+		return null;
+	}
+	
+	//Returns a set of all the targets that are available. Called after calcTargets.
+	public Set<BoardCell> getTargets() {
+		return null;
+	}
+
+	//Returns the cell at the given index.
+	public BoardCell getCellAt(int index) {
+		return null;
+	}
+	
 	
 
 }
