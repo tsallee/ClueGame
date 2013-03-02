@@ -2,6 +2,9 @@ package experiment;
 
 import static org.junit.Assert.*;
 import org.junit.*;
+
+import clueGame.BoardCell;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -143,8 +146,8 @@ public class IntBoardTests {
 	@Test
 	public void testTargets9_6() {
 		board.startTargets(9, 6);
-		HashSet targets = board.getTargets();
-		assertEquals(7, targets.size());
+		HashSet<BoardCell> targets = board.getTargets();
+		assertEquals(6, targets.size());
 		assertTrue(targets.contains(4));
 		assertTrue(targets.contains(12));
 		assertTrue(targets.contains(6));
