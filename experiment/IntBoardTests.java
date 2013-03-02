@@ -147,7 +147,7 @@ public class IntBoardTests {
 	public void testTargets9_6() {
 		board.startTargets(9, 6);
 		HashSet<BoardCell> targets = board.getTargets();
-		assertEquals(6, targets.size());
+		assertEquals(7, targets.size());
 		assertTrue(targets.contains(4));
 		assertTrue(targets.contains(12));
 		assertTrue(targets.contains(6));
