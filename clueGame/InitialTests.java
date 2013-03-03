@@ -3,8 +3,6 @@ package clueGame;
 import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-
 import org.junit.*;
 
 import org.junit.Test;

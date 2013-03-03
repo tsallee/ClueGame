@@ -132,7 +132,7 @@ public class IntBoardTests {
 	@Test
 	public void testTargets7_4() {
 		board.startTargets(7, 4);
-		HashSet targets = board.getTargets();
+		HashSet<Integer> targets = board.getTargets();
 		assertEquals(7, targets.size());
 		assertTrue(targets.contains(0));
 		assertTrue(targets.contains(8));
@@ -146,7 +146,7 @@ public class IntBoardTests {
 	@Test
 	public void testTargets9_6() {
 		board.startTargets(9, 6);
-		HashSet<BoardCell> targets = board.getTargets();
+		HashSet<Integer> targets = board.getTargets();
 		assertEquals(7, targets.size());
 		assertTrue(targets.contains(4));
 		assertTrue(targets.contains(12));

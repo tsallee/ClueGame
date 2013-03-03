@@ -13,7 +13,7 @@ public class IntBoard {
 		adjMtx = new HashMap();
 	}
 	
-	//Finished. Calculates all adjacent spaces for every index on our board.
+	//Calculates all adjacent spaces for every index on our board.
 	public void calcAdjacencies() {
 		LinkedList<Integer> adj;
 		for(int i = 0; i < BOARDSIZE; i++) {
