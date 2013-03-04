@@ -90,7 +90,6 @@ public class BoardInitTests {
 			if (cell.isDoorway())
 				numDoors++;
 		}
-		System.out.println(numDoors);
 		Assert.assertEquals(16, numDoors);
 	}
 

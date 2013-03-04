@@ -26,6 +26,17 @@ public class BoardCell {
 		return false;
 	}
 	
+	public int getRow() {
+		return row;
+	}
+	
+	public int getColumn() {
+		return column;
+	}
+	
+	public String toString() {
+		return "(" + row + ", " + column + ")";
+	}
 	/*
 	public void draw() {
 		
