@@ -37,7 +37,7 @@ public class RoomCell extends BoardCell {
 	
 	
 	public boolean isRoom() {
-		if(initial != 'X' && initial != 'W') return true;
+		if(initial != 'W') return true;
 		else return false;
 	}
 	

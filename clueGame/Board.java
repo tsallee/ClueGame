@@ -29,6 +29,7 @@ public class Board {
 	public Board(String board, String legend) {
 		cells = new ArrayList<BoardCell>();
 		rooms = new HashMap<Character, String>();
+		adjacencyMap = new HashMap<Integer, LinkedList<Integer>>();
 		legendFileName = legend;
 		boardFileName = board;
 	}
@@ -72,20 +73,24 @@ public class Board {
 				numColumns = sep.length;
 				firstLine = false;
 			}
-			if(sep.length != numColumns) throw new BadConfigFormatException();
+			if(sep.length != numColumns) {
+				System.out.println("Rows are not all same length.");
+				throw new BadConfigFormatException();
+			}
 			
 			for(int i = 0; i < sep.length; ++i) {
 				if(rooms.containsKey(sep[i].charAt(0)) && sep[i] == "W") {
 					cells.add(new BoardCell(numRows, i, true));
 				} else if(rooms.containsKey(sep[i].charAt(0)) && sep[i] == "X") {
-					cells.add(new BoardCell(numRows, i, false));
+					cells.add(new RoomCell(numRows, i, sep[i]));
 				} else if(rooms.containsKey(sep[i].charAt(0)) && (sep[i].length() < 3)) {
 					cells.add(new RoomCell(numRows, i, sep[i]));
-					if(sep[i].length() > 1) {
+					/*if(sep[i].length() > 1) {
 						char second = sep[i].charAt(1);
-						//if(second == 'N') System.out.println(numRows + "\n" + i + "\n" + second);
 						if ( second == 'U') {
-							adjList = roomAdjacencies.get(sep[i].charAt(0));
+							//adjList = roomAdjacencies.get(sep[i].charAt(0));
+							//roomAdjacencies.put(sep[i].charAt(0), adjList);
+							LinkedList<Integer> adjList = new LinkedList<Integer>();
 							adjList.add(calcIndex(numRows - 1, i));
 							roomAdjacencies.put(sep[i].charAt(0), adjList);
 						} else if ( second == 'L') {
@@ -103,9 +108,9 @@ public class Board {
 						} else {
 							//System.out.println("N");
 						}
-					}
+					}*/
 				} else {
-					//System.out.println("except");
+					System.out.println("Room key does not exist.");
 					throw new BadConfigFormatException();
 				}
 			}
@@ -126,25 +131,44 @@ public class Board {
 			below = cellIndex + numColumns;
 			adjList = new LinkedList<Integer>();
 			
-			if( getCellAt(cellIndex).isRoom() ) {
-				roomCell = getRoomCellAt(cellIndex);
-				adjList = roomAdjacencies.get(roomCell.getInitial());
-				
+			if( getCellAt(cellIndex).isRoom() && !getCellAt(cellIndex).isDoorway()) {
+				//roomCell = getRoomCellAt(cellIndex);
+				//adjList = roomAdjacencies.get(roomCell.getInitial());
+				adjList = new LinkedList<Integer>();
+			
+			} else if (getCellAt(cellIndex).isDoorway()) {
+				RoomCell door = getRoomCellAt(cellIndex);
+				if ( door.getDoorDirection() == RoomCell.DoorDirection.UP) 
+					adjList.add(cellIndex - numColumns);
+				else if ( door.getDoorDirection() == RoomCell.DoorDirection.RIGHT) 
+					adjList.add(cellIndex + 1);
+				else if ( door.getDoorDirection() == RoomCell.DoorDirection.LEFT) 
+					adjList.add(cellIndex - 1);
+				else if ( door.getDoorDirection() == RoomCell.DoorDirection.DOWN) 
+					adjList.add(cellIndex + numColumns);
 			} else {			
 				if(!isRightEdge(cellIndex) ) {
-					if ( !getCellAt(right).isRoom() || getCellAt(right).isDoorway())
-							adjList.add(right);
+					if ( !getCellAt(right).isRoom() )
+						adjList.add(right);
+					if ( getRoomCellAt(right).getDoorDirection() == RoomCell.DoorDirection.LEFT)
+						adjList.add(right);
 				}
 				if(!isLeftEdge(cellIndex)) {
-					if ( !getCellAt(left).isRoom() || getCellAt(left).isDoorway())
-							adjList.add(left);
+					if ( !getCellAt(left).isRoom())
+						adjList.add(left);
+					if ( getRoomCellAt(left).getDoorDirection() == RoomCell.DoorDirection.RIGHT)
+						adjList.add(left);
 				}
 				if(!isTopEdge(cellIndex)) {
-					if ( !getCellAt(above).isRoom() || getCellAt(above).isDoorway()) 
+					if ( !getCellAt(above).isRoom()) 
+						adjList.add(above);
+					if ( getRoomCellAt(above).getDoorDirection() == RoomCell.DoorDirection.DOWN)
 						adjList.add(above);
 				}
 				if(!isBottomEdge(cellIndex)) {
-					if ( !getCellAt(below).isRoom() || getCellAt(below).isDoorway()) 
+					if ( !getCellAt(below).isRoom()) 
+						adjList.add(below);
+					if ( getRoomCellAt(below).getDoorDirection() == RoomCell.DoorDirection.UP)
 						adjList.add(below);
 				}
 			}
@@ -158,20 +182,28 @@ public class Board {
 		visited = new boolean[boardSize];
 		targets = new HashSet<BoardCell>();
 		visited[location] = true;
-		helpTargets(location, steps);
+		helpTargets(location, steps, location);
 		if(targets.contains(getCellAt(location))) targets.remove(getCellAt(location));
+		
+		if(getCellAt(location).isRoom() && !getCellAt(location).isDoorway()) {
+			char initial = getRoomCellAt(location).getInitial();
+			for ( BoardCell cell : targets ) {
+				if( cell.isDoorway() ) {
+					targets.remove(cell);
+				}
+			}
+		}
 	}
 	
-	public void helpTargets(int location, int steps) {
+	public void helpTargets(int location, int steps, int originalLoc) {
 		LinkedList<Integer> adjList = getAdjList(location);
 		
 		for(int cell : adjList) {
 			visited[cell] = true;
 			if(getCellAt(cell).isDoorway()) {
 				targets.add(getCellAt(cell));
-				return;
 			} else if(steps == 1) targets.add(getCellAt(cell));
-			else helpTargets(cell, steps - 1);
+			else helpTargets(cell, steps - 1, originalLoc);
 			visited[cell] = false;
 		}
 	}

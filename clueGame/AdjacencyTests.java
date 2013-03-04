@@ -35,9 +35,7 @@ public class AdjacencyTests {
 	public void testEdgeAdjacencies() {
 		//Locations at the edge
 		LinkedList<Integer> adjList = board.getAdjList(board.calcIndex(8, 0));
-		assertEquals(2, adjList.size());
-		assertTrue(adjList.contains(board.calcIndex(8, 7)));
-		assertTrue(adjList.contains(board.calcIndex(11, 3)));
+		assertEquals(0, adjList.size());
 		
 		adjList = board.getAdjList(board.calcIndex(0, 8));
 		assertEquals(2, adjList.size());
@@ -161,13 +159,7 @@ public class AdjacencyTests {
 		board.calcTargets(16, 10, 3);
 		targets = board.getTargets();
 		
-		System.out.println(targets.size());
-		
-		LinkedList<Integer> bla = board.getAdjList(board.calcIndex(11, 8));
-		for ( int i : bla )
-			System.out.println(board.getCellAt(i));
-			
-		assertEquals(7, targets.size());
+		assertEquals(11, targets.size());
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 8))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(16, 7))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(17, 8))));
@@ -175,6 +167,11 @@ public class AdjacencyTests {
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(16, 13))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(17, 12))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(18, 9))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 10))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(16, 9))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(16, 11))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(17, 10))));
+		
 		assertTrue(board.getRoomCellAt(18, 9).isDoorway());
 		
 	}
@@ -182,28 +179,25 @@ public class AdjacencyTests {
 	@Test
 	public void testRoomLeaveTargets() {
 		
-		board.calcTargets(21, 3, 2);
+		board.calcTargets(23, 3, 2);
 		Set<BoardCell> targets = board.getTargets();
-		assertEquals(2, targets.size());
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(18, 5))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(19, 6))));
+		assertEquals(0, targets.size());
 		
 		board.calcTargets(5, 17, 4);
 		targets = board.getTargets();
-		
-		System.out.println(targets.size());
-		for ( BoardCell test : targets )
-			System.out.println(test);
-		
-		assertEquals(8, targets.size());
+					
+		assertEquals(11, targets.size());
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 20))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 19))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 18))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(8, 16))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 15))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(3, 15))));
-		assertTrue(targets.contains(board.getCellAt(board.calcIndex(2, 16))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(7, 17))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 18))));
 		assertTrue(targets.contains(board.getCellAt(board.calcIndex(9, 17))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(4, 16))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(5, 15))));
+		assertTrue(targets.contains(board.getCellAt(board.calcIndex(6, 16))));
 		assertTrue(board.getRoomCellAt(9, 17).isDoorway());
 		
 	}

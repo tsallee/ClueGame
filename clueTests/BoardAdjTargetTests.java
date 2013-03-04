@@ -15,10 +15,9 @@ public class BoardAdjTargetTests {
 	
 	@BeforeClass
 	public static void setUp() {
-		board = new Board("ClueLayout.csv", "legendConfig.txt");
+		board = new Board("ClueLayout.csv", "ClueLegend.txt");
 		board.loadConfigFiles();
 		board.calcAdjacencies();
-
 	}
 
 	// Ensure that player does not move around within room
@@ -209,11 +208,12 @@ public class BoardAdjTargetTests {
 		// Includes a path that doesn't have enough length
 		board.calcTargets(14, 0, 4);
 		targets= board.getTargets();
-		Assert.assertEquals(4, targets.size());
+		Assert.assertEquals(5, targets.size());
 		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 4))));
 		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 3))));	
 		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 2))));	
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 1))));	
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 1))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(12, 0))));
 	}	
 	// Tests of just walkways plus one door, 6 steps
 	// These are LIGHT BLUE on the planning spreadsheet
@@ -222,14 +222,15 @@ public class BoardAdjTargetTests {
 	public void testTargetsSixSteps() {
 		board.calcTargets(14, 0, 6);
 		Set<BoardCell> targets= board.getTargets();
-		Assert.assertEquals(7, targets.size());
+		Assert.assertEquals(8, targets.size());
 		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 6))));
 		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 5))));	
 		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 3))));	
 		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 4))));	
 		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(15, 1))));	
 		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(14, 2))));	
-		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 4))));	
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(13, 4))));
+		Assert.assertTrue(targets.contains(board.getCellAt(board.calcIndex(12, 0))));
 	}	
 	
 	// Test getting into a room
